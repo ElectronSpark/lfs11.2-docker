@@ -18,6 +18,9 @@ ENV LC_ALL=POSIX
 ENV PATH=/usr/bin:/bin:/usr/sbin:/sbin:${LFS}/tools/bin
 ENV CONFIG_SITE=${LFS}/usr/share/config.site
 
+# We use bash instead of dash as sh
+RUN rm -f /bin/sh && ln -sv /bin/bash /bin/sh 
+
 # install required packages
 RUN apt-get update && apt-get install -y    \
     build-essential \
@@ -52,8 +55,11 @@ RUN for i in bin lib sbin; do       \
 RUN mkdir -pv ${LFS}/lib64
 RUN chown -v ${LFS_USER_NAME} ${LFS}/lib64
 
+# create a directory to store packages and make it sticky
+RUN mkdir -v ${LFS_HOME}/sources && chmod -v a+wt ${LFS_HOME}/sources
+
 # copy scripts to be running in user "lfs"
-COPY [ "scripts/env_setting.sh", "${LFS_HOME}" ]
+COPY [ "scripts/*", "${LFS_HOME}/" ]
 RUN chmod 775 ${LFS_HOME}/env_setting.sh && \
     chown -v ${LFS_USER_NAME} ${LFS_HOME}/env_setting.sh && \
     sh ${LFS_HOME}/env_setting.sh
@@ -61,6 +67,9 @@ RUN chmod 775 ${LFS_HOME}/env_setting.sh && \
 # enter user "lfs"
 USER ${LFS_USER_NAME}
 WORKDIR ${LFS_HOME}
+
+# copy source files or list of urls to download them
+COPY [ "sources/pkgs/*", "${LFS_HOME}/pkgs/" ]
 
 # Enter the bash
 ENTRYPOINT [ "/bin/bash" ]

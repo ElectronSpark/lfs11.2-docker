@@ -14,3 +14,5 @@ echo "LFS_TGT=${LFS_TGT}" >> ${LFS_HOME}/.bashrc
 echo "PATH=${PATH}" >> ${LFS_HOME}/.bashrc
 echo "CONFIG_SITE=${CONFIG_SITE}" >> ${LFS_HOME}/.bashrc
 echo "export LFS LC_ALL LFS_TGT PATH CONFIG_SITE" >> ${LFS_HOME}/.bashrc
+echo "" >> ${LFS_HOME}/.bashrc
+echo "alias ls=\"ls --color\"" >> ${LFS_HOME}/.bashrc

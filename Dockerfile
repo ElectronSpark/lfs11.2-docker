@@ -24,13 +24,15 @@ RUN rm -f /bin/sh && ln -sv /bin/bash /bin/sh
 # install required packages
 RUN apt-get update && apt-get install -y    \
     build-essential \
+    coreutils   \
     bison   \
     file    \
     gawk    \
     texinfo    \
     wget    \
     libssl-dev  \
-    libelf-dev
+    libelf-dev  \
+    python3
 
 # create user with "lfs" as its name and password
 RUN groupadd ${LFS_GROUP_NAME}
@@ -52,8 +54,7 @@ RUN for i in bin lib sbin; do       \
     done
 
 # my computer is 64 bits
-RUN mkdir -pv ${LFS}/lib64
-RUN chown -v ${LFS_USER_NAME} ${LFS}/lib64
+RUN mkdir -pv ${LFS}/lib64 && chown -v ${LFS_USER_NAME} ${LFS}/lib64
 
 # create a directory to store packages and make it sticky
 RUN mkdir -v ${LFS_HOME}/sources && chmod -v a+wt ${LFS_HOME}/sources
@@ -70,6 +71,10 @@ WORKDIR ${LFS_HOME}
 
 # copy source files or list of urls to download them
 COPY [ "sources/pkgs/*", "${LFS_HOME}/pkgs/" ]
+
+# create a directory as the base dir for building packages.
+RUN mkdir -pv ${LFS_HOME}/build
+
 
 # Enter the bash
 ENTRYPOINT [ "/bin/bash" ]

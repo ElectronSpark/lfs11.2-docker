@@ -496,3 +496,68 @@ make DESTDIR=${LFS} install
 rm -v ${LFS}/usr/lib/liblzma.la
 
 popd
+
+
+# binutils (pass 2)
+# we've already unpacked binutils' pack, so we only need to create another
+# temporary path for building.
+mkdir -pv ${LFS_HOME}/build/binutils_p2
+
+# build the file command on target machine
+pushd ${LFS_HOME}/build/binutils_p2
+
+${LFS_HOME}/sources/binutils/configure                      \
+    --prefix=/usr                                           \
+    --host=${LFS_TGT}                                       \
+    --build=$(${LFS_HOME}/sources/binutils/config.guess)    \
+    --disable-nls                                           \
+    --enable-shared                                         \
+    --disable-werror                                        \
+    --enable-64-bit-bfd
+
+make
+make DESTDIR=${LFS} install
+# remove harmful libtool archive file
+rm -v ${LFS}/usr/lib/lib{bfd,ctf,ctf-nobfd,opcodes}.{a,la}
+
+popd
+
+
+# gcc (pass 2)
+# same as binutils (pass2), but an additional modification need to be done
+# before this time's configuration.
+mkdir -pv ${LFS_HOME}/build/gcc_p2
+# override the building rule of libgcc and libstdc++ headers, to allow building
+# these libraries with POSIX threads support.
+sed '/thread_header =/s/@.*@/gthr-posix.h/'         \
+    -i ${LFS_HOME}/sources/gcc/libgcc/Makefile.in   \
+    ${LFS_HOME}/sources/gcc/libstdc++-v3/include/Makefile.in
+
+pushd ${LFS_HOME}/build/gcc_p2
+
+${LFS_HOME}/sources/gcc/configure       \
+    --prefix=/usr                       \
+    --with-build-sysroot=${LFS}         \
+    --host=${LFS_TGT}                   \
+    --target=${LFS_TGT}                 \
+    --build=$(${LFS_HOME}/sources/gcc/config.guess) \
+    LDFLAGS_FOR_TARGET=-L${PWD}/${LFS_TGT}/libgcc   \
+    --enable-initfini-array             \
+    --disable-nls                       \
+    --disable-shared                    \
+    --disable-multilib                  \
+    --disable-decimal-float             \
+    --disable-libatomic                 \
+    --disable-libgomp                   \
+    --disable-libquadmath               \
+    --disable-libssp                    \
+    --disable-libvtv                    \
+    --enable-languages=c,c++
+
+make
+make DESTDIR=${LFS} install
+
+# make all programs and scripts run gcc
+ln -sv gcc ${LFS}/usr/bin/cc
+
+popd

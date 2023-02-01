@@ -18,11 +18,15 @@ ENV LC_ALL=POSIX
 ENV PATH=/usr/bin:/bin:/usr/sbin:/sbin:${LFS}/tools/bin
 ENV CONFIG_SITE=${LFS}/usr/share/config.site
 
+# @TODO: I build all the kernel file system under a regular directory. To build
+# a bootable driver or image file, more things need to be done.
+
 # We use bash instead of dash as sh
 RUN rm -f /bin/sh && ln -sv /bin/bash /bin/sh 
 
 # install required packages
 RUN apt-get update && apt-get install -y    \
+    sudo    \
     build-essential \
     coreutils   \
     bison   \
@@ -58,12 +62,19 @@ RUN mkdir -pv ${LFS}/lib64 && chown -v ${LFS_USER_NAME} ${LFS}/lib64
 
 # create a directory to store packages and make it sticky
 RUN mkdir -v ${LFS_HOME}/sources && chmod -v a+wt ${LFS_HOME}/sources
+RUN mkdir -v ${LFS}/sources && chmod -v a+wt ${LFS}/sources
 
 # copy scripts to be running in user "lfs"
 COPY [ "scripts/*", "${LFS_HOME}/" ]
-RUN chmod 775 ${LFS_HOME}/env_setting.sh && \
-    chown -v ${LFS_USER_NAME} ${LFS_HOME}/env_setting.sh && \
-    sh ${LFS_HOME}/env_setting.sh
+RUN chmod 775 ${LFS_HOME}/env_setting.sh    \
+    && chown -v ${LFS_USER_NAME} ${LFS_HOME}/final_prepare.sh   \
+    && chown -v ${LFS_USER_NAME} ${LFS_HOME}/env_setting.sh \
+    && sh ${LFS_HOME}/env_setting.sh
+
+# avoid sudo password
+RUN echo "lfs ALL = NOPASSWD : ALL" >> /etc/sudoers
+RUN echo 'Defaults env_keep += "LFS LC_ALL LFS_TGT PATH MAKEFLAGS FETCH_TOOLCHAIN_MODE LFS_TEST LFS_DOCS JOB_COUNT LOOP IMAGE_SIZE INITRD_TREE IMAGE"' >> /etc/sudoers
+
 
 # enter user "lfs"
 USER ${LFS_USER_NAME}

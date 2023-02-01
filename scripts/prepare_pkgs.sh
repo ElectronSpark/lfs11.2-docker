@@ -15,3 +15,5 @@ fi
 pushd ${LFS_HOME}/sources
     md5sum -c md5sums
 popd
+
+cp -rv ${LFS_HOME}/sources ${LFS}/

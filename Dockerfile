@@ -67,7 +67,8 @@ RUN mkdir -v ${LFS_HOME}/sources && chmod -v a+wt ${LFS_HOME}/sources
 RUN mkdir -v ${LFS}/sources && chmod -v a+wt ${LFS}/sources
 
 # copy scripts to be running in user "lfs"
-COPY [ "scripts/*", "${LFS_HOME}/" ]
+COPY [ "scripts/*.sh", "${LFS_HOME}/" ]
+COPY [ "scripts/build_chroot/*.sh", "${LFS}/" ]
 RUN chmod 775 ${LFS_HOME}/env_setting.sh    \
     && chown -v ${LFS_USER_NAME} ${LFS_HOME}/final_prepare.sh   \
     && chown -v ${LFS_USER_NAME} ${LFS_HOME}/env_setting.sh \

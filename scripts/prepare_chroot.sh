@@ -561,3 +561,8 @@ make DESTDIR=${LFS} install
 ln -sv gcc ${LFS}/usr/bin/cc
 
 popd
+
+
+# clean up all the temporary files generated while compiling.
+rm -rf ${LFS_HOME}/sources/*
+rm -rf ${LFS_HOME}/build/

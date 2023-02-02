@@ -38,6 +38,8 @@ RUN apt-get update && apt-get install -y    \
     libelf-dev  \
     python3
 
+RUN apt-get autoclean -y && apt-get autoremove -y
+
 # create user with "lfs" as its name and password
 RUN groupadd ${LFS_GROUP_NAME}
 RUN useradd -s /bin/bash -g ${LFS_GROUP_NAME} -m -k /dev/null \

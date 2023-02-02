@@ -47,7 +47,7 @@ RUN useradd -s /bin/bash -g ${LFS_GROUP_NAME} -m -k /dev/null \
 
 # build basic root structure of lfs
 WORKDIR ${LFS}
-RUN for i in etc var tools; do                  \
+RUN for i in etc var tools pkgs; do             \
         mkdir -pv ${LFS}/$i;                    \
         chown -v ${LFS_USER_NAME} ${LFS}/$i;    \
     done

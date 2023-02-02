@@ -6,7 +6,7 @@
 
 # binutils (pass 1)
 mkdir -pv ${LFS_HOME}/{build,sources}/binutils
-tar -xf ${LFS_HOME}/sources/binutils-2.39.tar.xz   \
+tar -xf ${LFS}/pkgs/binutils-2.39.tar.xz   \
     -C ${LFS_HOME}/sources/binutils --strip-components 1
 pushd ${LFS_HOME}/build/binutils
 
@@ -27,15 +27,15 @@ popd
 
 # gcc (pass 1 without glibc)
 mkdir -pv ${LFS_HOME}/{build,sources}/gcc
-tar -xf ${LFS_HOME}/sources/gcc-12.2.0.tar.xz  \
+tar -xf ${LFS}/pkgs/gcc-12.2.0.tar.xz  \
     -C ${LFS_HOME}/sources/gcc --strip-components 1
 # unpack packages required by gcc to gcc's source directory
 mkdir -pv ${LFS_HOME}/sources/gcc/{gmp,mpc,mpfr}
-tar -xf ${LFS_HOME}/sources/gmp-6.2.1.tar.xz \
+tar -xf ${LFS}/pkgs/gmp-6.2.1.tar.xz    \
     -C ${LFS_HOME}/sources/gcc/gmp --strip-components 1
-tar -xf ${LFS_HOME}/sources/mpc-1.2.1.tar.gz \
+tar -xf ${LFS}/pkgs/mpc-1.2.1.tar.gz    \
     -C ${LFS_HOME}/sources/gcc/mpc --strip-components 1
-tar -xf ${LFS_HOME}/sources/mpfr-4.1.0.tar.xz \
+tar -xf ${LFS}/pkgs/mpfr-4.1.0.tar.xz   \
     -C ${LFS_HOME}/sources/gcc/mpfr --strip-components 1
 
 # set the default directory name for 64-bit libraries to "lib"
@@ -81,7 +81,7 @@ popd
 # install linux API headers
 # linux kernel will be build at top directory of linux's source code, so just
 # extract kernel source code into ${LFS_HOME}/build/linux-5.19.2
-tar -xf ${LFS_HOME}/sources/linux-5.19.2.tar.xz -C ${LFS_HOME}/build
+tar -xf ${LFS}/pkgs/linux-5.19.2.tar.xz -C ${LFS_HOME}/build
 
 pushd ${LFS_HOME}/build/linux-5.19.2
 
@@ -101,11 +101,11 @@ popd
 # only consider what works for my machine.
 ln -sfv ../lib/ld-linux-x86-64.so.2 ${LFS}/lib64
 ln -sfv ../lib/ld-linux-x86-64.so.2 ${LFS}/lib64/ld-lsb-x86-64.so.3
-tar -xf ${LFS_HOME}/sources/glibc-2.36.tar.xz -C ${LFS_HOME}/sources
+tar -xf ${LFS}/pkgs/glibc-2.36.tar.xz -C ${LFS_HOME}/sources
 # apply the following patch to make glibc programs store their runtime data in
 # the FHS-compliant locations.
 pushd ${LFS_HOME}/sources/glibc-2.36
-patch -Np1 -i ../glibc-2.36-fhs-1.patch
+patch -Np1 -i ${LFS}/pkgs/glibc-2.36-fhs-1.patch
 popd
 
 mkdir -pv ${LFS_HOME}/build/glibc-2.36
@@ -168,7 +168,7 @@ popd
 
 
 # m4
-tar xf ${LFS_HOME}/sources/m4-1.4.19.tar.xz \
+tar xf ${LFS}/pkgs/m4-1.4.19.tar.xz         \
     -C ${LFS_HOME}/build/m4                 \
     --strip-components 1
 
@@ -187,7 +187,7 @@ popd
 
 # ncurses
 mkdir -pv ${LFS_HOME}/{build,sources}/ncurses
-tar -xf ${LFS_HOME}/sources/ncurses-6.3.tar.gz  \
+tar -xf ${LFS}/pkgs/ncurses-6.3.tar.gz          \
     -C ${LFS_HOME}/sources/ncurses              \
     --strip-components 1
 
@@ -228,7 +228,7 @@ popd
 
 # bash
 mkdir -pv ${LFS_HOME}/{build,sources}/bash
-tar -xf ${LFS_HOME}/sources/bash-5.1.16.tar.gz  \
+tar -xf ${LFS}/pkgs/bash-5.1.16.tar.gz          \
     -C ${LFS_HOME}/sources/bash                 \
     --strip-components 1
 
@@ -250,7 +250,7 @@ popd
 
 # coreutils
 mkdir -pv ${LFS_HOME}/{build,sources}/coreutils
-tar -xf ${LFS_HOME}/sources/coreutils-9.1.tar.xz    \
+tar -xf ${LFS}/pkgs/coreutils-9.1.tar.xz            \
     -C ${LFS_HOME}/sources/coreutils                \
     --strip-components 1
 
@@ -276,7 +276,7 @@ popd
 
 # diffutils
 mkdir -pv ${LFS_HOME}/{build,sources}/diffutils
-tar -xf ${LFS_HOME}/sources/diffutils-3.8.tar.xz    \
+tar -xf ${LFS}/pkgs/diffutils-3.8.tar.xz            \
     -C ${LFS_HOME}/sources/diffutils                \
     --strip-components 1
 
@@ -292,7 +292,7 @@ popd
 
 # file
 mkdir -pv ${LFS_HOME}/{build,sources}/file/{,host_build}
-tar -xf ${LFS_HOME}/sources/file-5.42.tar.gz    \
+tar -xf ${LFS}/pkgs/file-5.42.tar.gz            \
     -C ${LFS_HOME}/sources/file                 \
     --strip-components 1
 
@@ -325,7 +325,7 @@ popd
 
 # findutils
 mkdir -pv ${LFS_HOME}/{build,sources}/findutils
-tar -xf ${LFS_HOME}/sources/findutils-4.9.0.tar.xz  \
+tar -xf ${LFS}/pkgs/findutils-4.9.0.tar.xz          \
     -C ${LFS_HOME}/sources/findutils                \
     --strip-components 1
 
@@ -345,7 +345,7 @@ popd
 
 # gawk
 mkdir -pv ${LFS_HOME}/{build,sources}/gawk
-tar -xf ${LFS_HOME}/sources/gawk-5.1.1.tar.xz   \
+tar -xf ${LFS}/pkgs/gawk-5.1.1.tar.xz           \
     -C ${LFS_HOME}/sources/gawk                 \
     --strip-components 1
 
@@ -364,7 +364,7 @@ popd
 
 # grep
 mkdir -pv ${LFS_HOME}/{build,sources}/grep
-tar -xf ${LFS_HOME}/sources/grep-3.7.tar.xz \
+tar -xf ${LFS}/pkgs/grep-3.7.tar.xz         \
     -C ${LFS_HOME}/sources/grep             \
     --strip-components 1
 
@@ -382,7 +382,7 @@ popd
 
 # gzip
 mkdir -pv ${LFS_HOME}/{build,sources}/gzip
-tar -xf ${LFS_HOME}/sources/gzip-1.12.tar.xz    \
+tar -xf ${LFS}/pkgs/gzip-1.12.tar.xz            \
     -C ${LFS_HOME}/sources/gzip                 \
     --strip-components 1
 
@@ -400,7 +400,7 @@ popd
 
 # make
 mkdir -pv ${LFS_HOME}/{build,sources}/make
-tar -xf ${LFS_HOME}/sources/make-4.3.tar.gz \
+tar -xf ${LFS}/pkgs/make-4.3.tar.gz         \
     -C ${LFS_HOME}/sources/make             \
     --strip-components 1
 
@@ -421,7 +421,7 @@ popd
 
 # patch
 mkdir -pv ${LFS_HOME}/{build,sources}/patch
-tar -xf ${LFS_HOME}/sources/patch-2.7.6.tar.xz  \
+tar -xf ${LFS}/pkgs/patch-2.7.6.tar.xz          \
     -C ${LFS_HOME}/sources/patch                \
     --strip-components 1
 
@@ -440,7 +440,7 @@ popd
 
 # sed
 mkdir -pv ${LFS_HOME}/{build,sources}/sed
-tar -xf ${LFS_HOME}/sources/sed-4.8.tar.xz  \
+tar -xf ${LFS}/pkgs/sed-4.8.tar.xz          \
     -C ${LFS_HOME}/sources/sed              \
     --strip-components 1
 
@@ -458,7 +458,7 @@ popd
 
 # tar
 mkdir -pv ${LFS_HOME}/{build,sources}/tar
-tar -xf ${LFS_HOME}/sources/tar-1.34.tar.xz     \
+tar -xf ${LFS}/pkgs/tar-1.34.tar.xz             \
     -C ${LFS_HOME}/sources/tar                  \
     --strip-components 1
 
@@ -477,7 +477,7 @@ popd
 
 # xz
 mkdir -pv ${LFS_HOME}/{build,sources}/xz
-tar -xf ${LFS_HOME}/sources/xz-5.2.6.tar.xz     \
+tar -xf ${LFS}/pkgs/xz-5.2.6.tar.xz             \
     -C ${LFS_HOME}/sources/xz                   \
     --strip-components 1
 

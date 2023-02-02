@@ -18,13 +18,13 @@ mkdir -pv ${LFS}/{dev,proc,sys,run}
 # @TODO: not populating /dev fs may cause problem, but this action is commented
 #       there because permission was denied under unprivileged docker 
 #       environment.
-# mount -v --bind /dev ${LFS}/dev
+mount -v --bind /dev ${LFS}/dev
 
 # mount the remaining virtual kernel filesystems
 mount -v --bind /dev/pts ${LFS}/dev/pts
 mount -vt proc proc ${LFS}/proc
 mount -vt sysfs sysfs ${LFS}/sys
-mount -vt tmpfs tmpfs ${LFS}/tmp
+mount -vt tmpfs tmpfs ${LFS}/run
 # in some host systems, /dev/shm is a symbolic link to /run/shm.
 if [ -h ${LFS}/dev/shm ]; then
     mkdir -pv ${LFS}/$(readlink ${LFS}/dev/shm)

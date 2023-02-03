@@ -36,7 +36,8 @@ RUN apt-get update && apt-get install -y    \
     wget    \
     libssl-dev  \
     libelf-dev  \
-    python3
+    python3 \
+    vim
 
 RUN apt-get autoclean -y && apt-get autoremove -y
 
@@ -67,12 +68,11 @@ RUN mkdir -v ${LFS_HOME}/sources && chmod -v a+wt ${LFS_HOME}/sources
 RUN mkdir -v ${LFS}/sources && chmod -v a+wt ${LFS}/sources
 
 # copy scripts to be running in user "lfs"
-COPY [ "scripts/*.sh", "${LFS_HOME}/" ]
-COPY [ "scripts/build_chroot/*.sh", "${LFS}/" ]
-RUN chmod 775 ${LFS_HOME}/env_setting.sh    \
-    && chown -v ${LFS_USER_NAME} ${LFS_HOME}/final_prepare.sh   \
-    && chown -v ${LFS_USER_NAME} ${LFS_HOME}/env_setting.sh \
-    && sh ${LFS_HOME}/env_setting.sh
+COPY [ "scripts", "${LFS_HOME}/scripts" ]
+COPY [ "scripts", "${LFS}/scripts" ]
+RUN chmod 775 -R ${LFS_HOME}/scripts                    \
+    && chown -v -R ${LFS_USER_NAME} ${LFS_HOME}/scripts
+RUN sh ${LFS_HOME}/scripts/prepare_chroot/env_setting.sh
 
 # avoid sudo password
 RUN echo "lfs ALL = NOPASSWD : ALL" >> /etc/sudoers

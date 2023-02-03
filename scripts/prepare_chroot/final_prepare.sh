@@ -36,7 +36,7 @@ chroot "${LFS}" /usr/bin/env -i \
     TERM="$TERM"                \
     PS1='(lfs chroot) \u:\w\$'  \
     PATH=/usr/bin:/usr/sbin     \
-    /bin/bash --login
+    /bin/bash --login -c "/scripts/run_all.sh on_chroot"
 
 # @TODO: the following line will be executed after the chroot envoronment 
 #       logout.

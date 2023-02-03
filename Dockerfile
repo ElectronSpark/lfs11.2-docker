@@ -69,9 +69,11 @@ RUN mkdir -v ${LFS}/sources && chmod -v a+wt ${LFS}/sources
 
 # copy scripts to be running in user "lfs"
 COPY [ "scripts", "${LFS_HOME}/scripts" ]
-COPY [ "scripts", "${LFS}/scripts" ]
 RUN chmod 775 -R ${LFS_HOME}/scripts                    \
     && chown -v -R ${LFS_USER_NAME} ${LFS_HOME}/scripts
+COPY [ "scripts", "${LFS}/scripts" ]
+RUN chmod 775 -R ${LFS}/scripts                         \
+    && chown -v -R ${LFS_USER_NAME} ${LFS}/scripts
 RUN sh ${LFS_HOME}/scripts/prepare_chroot/env_setting.sh
 
 # avoid sudo password

@@ -168,6 +168,7 @@ popd
 
 
 # m4
+mkdir -pv ${LFS_HOME}/build/m4
 tar xf ${LFS}/pkgs/m4-1.4.19.tar.xz         \
     -C ${LFS_HOME}/build/m4                 \
     --strip-components 1

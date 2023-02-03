@@ -34,13 +34,13 @@ popd
 
 
 # perl
-mkdir -pv /{build,sources}/perl
+mkdir -pv /build/perl
 tar -xf /pkgs/perl-5.36.0.tar.xz    \
-    -C /sources/perl --strip-components 1
+    -C /build/perl --strip-components 1
 
 pushd /build/perl
 
-sh /sources/perl/Configure                      \
+sh ./Configure                                  \
     -des                                        \
     -Dprefix=/usr                               \
     -Dvendorprefix=/usr                         \
@@ -74,12 +74,12 @@ popd
 
 
 # texinfo
-mkdir -pv /{build,sources}/texinfo
-tar -xf /pkgs/texinfo-6.8.tar.xz -C /sources/texinfo --strip-components 1
+mkdir -pv /build/texinfo
+tar -xf /pkgs/texinfo-6.8.tar.xz -C /build/texinfo --strip-components 1
 
 pushd /build/texinfo
 
-/sources/texinfo/configure --prefix=/usr
+./configure --prefix=/usr
 
 make & make install
 

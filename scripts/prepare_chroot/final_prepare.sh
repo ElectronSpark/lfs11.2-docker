@@ -29,14 +29,3 @@ mount -vt tmpfs tmpfs ${LFS}/run
 if [ -h ${LFS}/dev/shm ]; then
     mkdir -pv ${LFS}/$(readlink ${LFS}/dev/shm)
 fi
-
-# enter the chroot environment
-chroot "${LFS}" /usr/bin/env -i \
-    HOME=/root                  \
-    TERM="$TERM"                \
-    PS1='(lfs chroot) \u:\w\$'  \
-    PATH=/usr/bin:/usr/sbin     \
-    /bin/bash --login -c "/scripts/run_all.sh on_chroot"
-
-# @TODO: the following line will be executed after the chroot envoronment 
-#       logout.

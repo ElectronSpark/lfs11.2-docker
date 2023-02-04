@@ -10,6 +10,8 @@ function on_host() {
     sh prepare_pkgs.sh
     sh prepare_chroot.sh
     sudo sh final_prepare.sh
+    sudo sh enter_chroot.sh "/scripts/run_all.sh on_chroot"
+    sudo sh enter_chroot.sh
     popd
 }
 

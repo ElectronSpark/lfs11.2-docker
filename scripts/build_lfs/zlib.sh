@@ -7,7 +7,7 @@ tar -xf /pkgs/zlib-1.2.12.tar.xz                    \
 pushd /build/zlib
 
 /sources/zlib/configure             \
-    --prefix=/usr                   \
+    --prefix=/usr
 
 make
 make check > test_result.log

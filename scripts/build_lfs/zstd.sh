@@ -6,7 +6,7 @@ tar -xf /pkgs/zstd-1.5.2.tar.gz                 \
 
 pushd /build/zstd
 
-patch -Np1 -i zstd-1.5.2-upstream_fixes-1.patch
+patch -Np1 -i /pkgs/zstd-1.5.2-upstream_fixes-1.patch
 
 make prefix=/usr
 make check > test_result.log

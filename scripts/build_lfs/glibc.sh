@@ -4,7 +4,7 @@ mkdir -pv /{build,sources}/glibc
 tar -xf /pkgs/glibc-2.36.tar.xz    \
     -C /sources/glibc --strip-components 1
 pushd /sources/glibc
-    patch -Np1 -i ../glibc-2.36-fhs-1.patch
+    patch -Np1 -i /pkgs/glibc-2.36-fhs-1.patch
 popd
 
 pushd /build/glibc

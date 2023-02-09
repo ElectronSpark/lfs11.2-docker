@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# > 0 ]; then
+if [ $# -gt 0 ]; then
     chroot "${LFS}" /usr/bin/env -i \
         HOME=/root                  \
         TERM="$TERM"                \

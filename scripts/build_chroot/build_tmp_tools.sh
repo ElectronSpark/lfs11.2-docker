@@ -4,13 +4,13 @@
 #
 
 # gettext
-mkdir -pv /{build,sources}/gettext
+mkdir -pv /{build,sources}/gettext-tmp
 tar -xf /pkgs/gettext-0.21.tar.xz   \
-    -C /sources/gettext --strip-components 1
+    -C /sources/gettext-tmp --strip-components 1
 
-pushd /build/gettext
+pushd /build/gettext-tmp
 
-/sources/gettext/configure --disable-shared
+/sources/gettext-tmp/configure --disable-shared
 
 make && cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin
 
@@ -18,13 +18,13 @@ popd
 
 
 # bison
-mkdir -pv /{build,sources}/bison
+mkdir -pv /{build,sources}/bison-tmp
 tar -xf /pkgs/bison-3.8.2.tar.xz    \
-    -C /sources/bison --strip-components 1
+    -C /sources/bison-tmp --strip-components 1
 
-pushd /build/bison
+pushd /build/bison-tmp
 
-/sources/bison/configure    \
+/sources/bison-tmp/configure    \
     --prefix=/usr  \
     --docdir=/usr/share/doc/bison-3.8.2
 
@@ -34,11 +34,11 @@ popd
 
 
 # perl
-mkdir -pv /build/perl
+mkdir -pv /build/perl-tmp
 tar -xf /pkgs/perl-5.36.0.tar.xz    \
-    -C /build/perl --strip-components 1
+    -C /build/perl-tmp --strip-components 1
 
-pushd /build/perl
+pushd /build/perl-tmp
 
 sh ./Configure                                  \
     -des                                        \
@@ -57,13 +57,13 @@ popd
 
 
 # python-3.10.6
-mkdir -pv /{build,sources}/python-3.10.6
+mkdir -pv /{build,sources}/python3.10-tmp
 tar -xf /pkgs/Python-3.10.6.tar.xz      \
-    -C /sources/python-3.10.6 --strip-components 1
+    -C /sources/python3.10-tmp --strip-components 1
 
-pushd /build/python-3.10.6
+pushd /build/python3.10-tmp
 
-/sources/python-3.10.6/configure    \
+/sources/python3.10-tmp/configure   \
     --prefix=/usr                   \
     --enable-shared                 \
     --without-ensurepip
@@ -74,10 +74,10 @@ popd
 
 
 # texinfo
-mkdir -pv /build/texinfo
-tar -xf /pkgs/texinfo-6.8.tar.xz -C /build/texinfo --strip-components 1
+mkdir -pv /build/texinfo-tmp
+tar -xf /pkgs/texinfo-6.8.tar.xz -C /build/texinfo-tmp --strip-components 1
 
-pushd /build/texinfo
+pushd /build/texinfo-tmp
 
 ./configure --prefix=/usr
 
@@ -88,13 +88,13 @@ pushd
 
 # util linux
 mkdir -pv /var/lib/hwclock
-mkdir -pv /{build,sources}/util-linux
+mkdir -pv /{build,sources}/util-linux-tmp
 tar -xf /pkgs/util-linux-2.38.1.tar.xz  \
-    -C /sources/util-linux --strip-components 1
+    -C /sources/util-linux-tmp --strip-components 1
 
-pushd /build/util-linux
+pushd /build/util-linux-tmp
 
-/sources/util-linux/configure                   \
+/sources/util-linux-tmp/configure                   \
     ADJTIME_PATH=/var/lib/hwclock/adjtime       \
     --libdir=/usr/lib                           \
     --docdir=/usr/share/doc/util-linux-2.38.1   \

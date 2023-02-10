@@ -545,8 +545,9 @@ popd
 mkdir -pv ${LFS_HOME}/build/gcc_p2
 tar -xf ${LFS}/pkgs/gcc-12.2.0.tar.xz  \
     -C ${LFS_HOME}/build/gcc_p2 --strip-components 1
-# unpack packages required by gcc to gcc's source directory
 pushd ${LFS_HOME}/build/gcc_p2
+
+# unpack packages required by gcc to gcc's source directory
 tar -xf ${LFS}/pkgs/gmp-6.2.1.tar.xz
 mv -v gmp-6.2.1 gmp
 tar -xf ${LFS}/pkgs/mpc-1.2.1.tar.gz
@@ -555,7 +556,7 @@ tar -xf ${LFS}/pkgs/mpfr-4.1.0.tar.xz
 mv -v mpfr-4.1.0 mpfr
 
 # set the default directory name for 64-bit libraries to "lib"
-sed -e "/m64=/s/lib64/lib/" -i.orig gcc/config/i386/t-linux64
+sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64
 
 # override the building rule of libgcc and libstdc++ headers, to allow building
 # these libraries with POSIX threads support.
@@ -566,15 +567,14 @@ mkdir -v build
 cd build
 
 ../configure                            \
-    --prefix=/usr                       \
-    --with-build-sysroot=${LFS}         \
-    --host=${LFS_TGT}                   \
-    --target=${LFS_TGT}                 \
     --build=$(../config.guess)          \
+    --host=$LFS_TGT                     \
+    --target=$LFS_TGT                   \
     LDFLAGS_FOR_TARGET=-L$PWD/$LFS_TGT/libgcc   \
+    --prefix=/usr                       \
+    --with-build-sysroot=$LFS           \
     --enable-initfini-array             \
     --disable-nls                       \
-    --disable-shared                    \
     --disable-multilib                  \
     --disable-decimal-float             \
     --disable-libatomic                 \

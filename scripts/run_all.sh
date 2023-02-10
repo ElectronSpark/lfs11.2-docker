@@ -18,14 +18,14 @@ function on_host() {
     sudo chroot "${LFS}" /usr/bin/env -i    \
         HOME=/root                  \
         TERM="$TERM"                \
-        PS1='(lfs chroot) \u:\w\$'  \
+        PS1='(lfs chroot) \u:\w\$ ' \
         PATH=/usr/bin:/usr/sbin     \
         MAKEFLAGS="${MAKEFLAGS}"    \
         /bin/bash --login -c "/scripts/run_all.sh on_chroot_env_setting"
     sudo chroot "${LFS}" /usr/bin/env -i    \
         HOME=/root                  \
         TERM="$TERM"                \
-        PS1='(lfs chroot) \u:\w\$'  \
+        PS1='(lfs chroot) \u:\w\$ ' \
         PATH=/usr/bin:/usr/sbin     \
         MAKEFLAGS="${MAKEFLAGS}"    \
         /bin/bash --login -c "/scripts/run_all.sh on_chroot"

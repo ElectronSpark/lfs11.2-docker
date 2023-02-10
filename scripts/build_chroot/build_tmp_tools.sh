@@ -4,31 +4,33 @@
 #
 
 # gettext
-mkdir -pv /{build,sources}/gettext-tmp
+mkdir -pv /build/gettext-tmp
 tar -xf /pkgs/gettext-0.21.tar.xz   \
-    -C /sources/gettext-tmp --strip-components 1
+    -C /build/gettext-tmp --strip-components 1
 
 pushd /build/gettext-tmp
 
-/sources/gettext-tmp/configure --disable-shared
+./configure --disable-shared
 
-make && cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin
+make
+cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin
 
 popd
 
 
 # bison
-mkdir -pv /{build,sources}/bison-tmp
+mkdir -pv /build/bison-tmp
 tar -xf /pkgs/bison-3.8.2.tar.xz    \
-    -C /sources/bison-tmp --strip-components 1
+    -C /build/bison-tmp --strip-components 1
 
 pushd /build/bison-tmp
 
-/sources/bison-tmp/configure    \
-    --prefix=/usr  \
+./configure         \
+    --prefix=/usr   \
     --docdir=/usr/share/doc/bison-3.8.2
 
-make && make install
+make
+make install
 
 popd
 
@@ -51,24 +53,26 @@ sh ./Configure                                  \
     -Dvendorlib=/usr/lib/perl5/5.36/vendor_perl \
     -Dvendorarch=/usr/lib/perl5/5.36/vendor_perl
 
-make && make install
+make
+make install
 
 popd
 
 
 # python-3.10.6
-mkdir -pv /{build,sources}/python3.10-tmp
+mkdir -pv /build/python3.10-tmp
 tar -xf /pkgs/Python-3.10.6.tar.xz      \
-    -C /sources/python3.10-tmp --strip-components 1
+    -C /build/python3.10-tmp --strip-components 1
 
 pushd /build/python3.10-tmp
 
-/sources/python3.10-tmp/configure   \
-    --prefix=/usr                   \
-    --enable-shared                 \
+./configure                 \
+    --prefix=/usr           \
+    --enable-shared         \
     --without-ensurepip
 
-make && make install
+make
+make install
 
 popd
 
@@ -81,20 +85,21 @@ pushd /build/texinfo-tmp
 
 ./configure --prefix=/usr
 
-make & make install
+make
+make install
 
 pushd
 
 
 # util linux
 mkdir -pv /var/lib/hwclock
-mkdir -pv /{build,sources}/util-linux-tmp
+mkdir -pv /build/util-linux-tmp
 tar -xf /pkgs/util-linux-2.38.1.tar.xz  \
-    -C /sources/util-linux-tmp --strip-components 1
+    -C /build/util-linux-tmp --strip-components 1
 
 pushd /build/util-linux-tmp
 
-/sources/util-linux-tmp/configure                   \
+./configure                                     \
     ADJTIME_PATH=/var/lib/hwclock/adjtime       \
     --libdir=/usr/lib                           \
     --docdir=/usr/share/doc/util-linux-2.38.1   \
@@ -109,7 +114,8 @@ pushd /build/util-linux-tmp
     --without-python                            \
     runstatedir=/run
 
-make && make install
+make
+make install
 
 popd
 
@@ -117,4 +123,5 @@ popd
 # clean up
 rm -rf /usr/share/{info,man,doc}/*
 find /usr/{lib,libexec} -name \*.la -delete
-# rm -rf /sources/* /build/*
+rm -rf /tools
+# rm -rf /build/*

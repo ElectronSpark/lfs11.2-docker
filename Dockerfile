@@ -64,8 +64,7 @@ RUN for i in bin lib sbin; do       \
 RUN mkdir -pv ${LFS}/lib64 && chown -v ${LFS_USER_NAME} ${LFS}/lib64
 
 # create a directory to store packages and make it sticky
-RUN mkdir -v ${LFS_HOME}/sources && chmod -v a+wt ${LFS_HOME}/sources
-RUN mkdir -v ${LFS}/sources && chmod -v a+wt ${LFS}/sources
+RUN mkdir -v ${LFS}/build && chmod -v a+wt ${LFS}/build
 
 # copy scripts to be running in user "lfs"
 COPY [ "scripts", "${LFS_HOME}/scripts" ]

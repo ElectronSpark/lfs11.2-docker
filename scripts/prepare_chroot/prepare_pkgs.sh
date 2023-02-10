@@ -1,7 +1,7 @@
 #!/bin/bash
-# This programs downloads all the packages needed to "~/sources".
+# This programs downloads all the packages needed to "~/lfs_root/pkgs".
 # If a tarball contains all these packages is detected, then just extract its
-# contents to "~/sources".
+# contents to "~/lfs_root/pkgs".
 
 if [ -f ${LFS_HOME}/pkgs/lfs-packages-11.2.tar ]; then
     tar vxf ${LFS_HOME}/pkgs/lfs-packages-11.2.tar  \

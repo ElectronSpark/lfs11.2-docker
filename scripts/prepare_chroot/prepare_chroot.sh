@@ -518,16 +518,19 @@ tar -xf ${LFS}/pkgs/binutils-2.39.tar.xz   \
 # build the file command on target machine
 pushd ${LFS_HOME}/build/binutils_p2
 
+sed '6009s/$add_dir//' -i ltmain.sh
+
 mkdir -v build
 cd build
 
-../configure                      \
-    --prefix=/usr                 \
-    --host=${LFS_TGT}             \
-    --build=$(../config.guess)    \
-    --disable-nls                 \
-    --enable-shared               \
-    --disable-werror              \
+../configure                        \
+    --prefix=/usr                   \
+    --host=${LFS_TGT}               \
+    --build=$(../config.guess)      \
+    --disable-nls                   \
+    --enable-shared                 \
+    --enable-gprofng=no             \
+    --disable-werror                \
     --enable-64-bit-bfd
 
 make

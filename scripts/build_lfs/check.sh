@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/check
+mkdir -pv /build/check
 tar -xf /pkgs/check-0.15.2.tar.gz           \
-    -C /sources/check --strip-components 1
+    -C /build/check --strip-components 1
 
 pushd /build/check
 
-/sources/check/configure --prefix=/usr --disable-static
+./configure --prefix=/usr --disable-static
 
 make
 

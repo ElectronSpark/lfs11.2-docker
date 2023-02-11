@@ -1,13 +1,13 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/grub
+mkdir -pv /build/grub
 tar -xf /pkgs/grub-2.06.tar.xz              \
-    -C /sources/grub --strip-components 1
+    -C /build/grub --strip-components 1
 
 pushd /build/grub
 
 # '--disable-efiemu' this is not needed for LFS
-/sources/grub/configure     \
+./configure                 \
     --prefix=/usr           \
     --sysconfdir=/etc       \
     --disable-efiemu        \

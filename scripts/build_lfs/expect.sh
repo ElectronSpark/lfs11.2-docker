@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/expect
+mkdir -pv /build/expect
 tar -xf /pkgs/expect5.45.4.tar.gz           \
-    -C /sources/expect --strip-components 1
+    -C /build/expect --strip-components 1
 
 pushd /build/expect
 
-/sources/expect/configure           \
+./configure                         \
     --prefix=/usr                   \
     --with-tcl=/usr/lib             \
     --enable-shared                 \

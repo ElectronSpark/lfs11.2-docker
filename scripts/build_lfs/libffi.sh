@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/libffi
+mkdir -pv /build/libffi
 tar -xf /pkgs/libffi-3.4.2.tar.gz        \
-    -C /sources/libffi --strip-components 1
+    -C /build/libffi --strip-components 1
 
 pushd /build/libffi
 
-/sources/libffi/configure       \
+./configure                     \
     --prefix=/usr               \
     --disable-static            \
     --with-gcc-arch=native      \

@@ -1,13 +1,13 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/findutils
+mkdir -pv /build/findutils
 tar -xf /pkgs/findutils-4.9.0.tar.xz            \
-    -C /sources/findutils --strip-components 1
+    -C /build/findutils --strip-components 1
 
 pushd /build/findutils
 
 # if it's building a 32bit system, 'TIME_32_BIT_OK=yes' is needed to be added.
-/sources/findutils/configure --prefix=/usr --localstatedir=/var/lib/locate
+./configure --prefix=/usr --localstatedir=/var/lib/locate
 
 make
 

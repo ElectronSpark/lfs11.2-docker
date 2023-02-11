@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/inetutils
+mkdir -pv /build/inetutils
 tar -xf /pkgs/inetutils-2.3.tar.xz          \
-    -C /sources/inetutils --strip-components 1
+    -C /build/inetutils --strip-components 1
 
 pushd /build/inetutils
 
-/sources/inetutils/configure    \
+./configure                     \
     --prefix=/usr               \
     --bindir=/usr/bin           \
     --localstatedir=/var        \

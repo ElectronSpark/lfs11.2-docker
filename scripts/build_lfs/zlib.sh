@@ -1,13 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/zlib
+mkdir -pv /build/zlib
 tar -xf /pkgs/zlib-1.2.12.tar.xz                    \
-    -C /sources/zlib --strip-components 1
+    -C /build/zlib --strip-components 1
 
 pushd /build/zlib
 
-/sources/zlib/configure             \
-    --prefix=/usr
+./configure --prefix=/usr
 
 make
 make check > test_result.log

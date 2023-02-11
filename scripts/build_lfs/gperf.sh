@@ -1,14 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/gperf
+mkdir -pv /build/gperf
 tar -xf /pkgs/gperf-3.1.tar.gz              \
-    -C /sources/gperf --strip-components 1
+    -C /build/gperf --strip-components 1
 
 pushd /build/gperf
 
-/sources/gperf/configure    \
-    --prefix=/usr           \
-    --docdir=/usr/share/doc/gperf-3.1
+./configure --prefix=/usr --docdir=/usr/share/doc/gperf-3.1
 
 make
 make -j1 check > test_result.log

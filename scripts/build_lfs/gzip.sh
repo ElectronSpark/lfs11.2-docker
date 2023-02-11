@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/gzip
+mkdir -pv /build/gzip
 tar -xf /pkgs/gzip-1.12.tar.xz              \
-    -C /sources/gzip --strip-components 1
+    -C /build/gzip --strip-components 1
 
 pushd /build/gzip
 
-/sources/gzip/configure --prefix=/usr
+./configure --prefix=/usr
 
 make
 

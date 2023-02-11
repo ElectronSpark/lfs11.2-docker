@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/ncurses
+mkdir -pv /build/ncurses
 tar -xf /pkgs/ncurses-6.3.tar.gz                    \
-    -C /sources/ncurses --strip-components 1
+    -C /build/ncurses --strip-components 1
 
 pushd /build/ncurses
 
-/sources/ncurses/configure      \
+./configure      \
     --prefix=/usr               \
     --mandir=/usr/share/man     \
     --with-shared               \
@@ -46,6 +46,6 @@ ln -sfv libncurses.so   /usr/lib/libcurses.so
 
 # install the ncurses documentation
 mkdir -pv   /usr/share/doc/ncurses-6.3
-cp -v -R /sources/ncurses/doc/* /usr/share/doc/ncurses-6.3
+cp -v -R doc/* /usr/share/doc/ncurses-6.3
 
 popd

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/groff
+mkdir -pv /build/groff
 tar -xf /pkgs/groff-1.22.4.tar.gz               \
-    -C /sources/groff --strip-components 1
+    -C /build/groff --strip-components 1
 
 pushd /build/groff
 
-PAGE=A4 /sources/groff/configure --prefix=/usr
+PAGE=A4 ./configure --prefix=/usr
 
 # this package doesn't support parallel build
 make -j1

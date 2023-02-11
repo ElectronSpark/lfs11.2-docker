@@ -15,9 +15,6 @@ chown -R root:root ${LFS}/lib64
 mkdir -pv ${LFS}/{dev,proc,sys,run}
 
 # mount and populate the host system's /dev directory
-# @TODO: not populating /dev fs may cause problem, but this action is commented
-#       there because permission was denied under unprivileged docker 
-#       environment.
 mount -v --bind /dev ${LFS}/dev
 
 # mount the remaining virtual kernel filesystems

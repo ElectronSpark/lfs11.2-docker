@@ -38,7 +38,7 @@ LFS_PKGS_NAME_LIST= \
     inetutils       \
     less            \
     perl            \
-    xml             \
+    XML-Parser      \
     intltool        \
     autoconf        \
     automake        \
@@ -58,7 +58,7 @@ LFS_PKGS_NAME_LIST= \
     groff           \
     grub            \
     gzip            \
-    iproute         \
+    iproute2        \
     kbd             \
     libpipeline     \
     make            \

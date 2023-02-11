@@ -1,21 +1,22 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/glibc
+mkdir -pv /build/glibc
 tar -xf /pkgs/glibc-2.36.tar.xz    \
-    -C /sources/glibc --strip-components 1
-pushd /sources/glibc
-    patch -Np1 -i /pkgs/glibc-2.36-fhs-1.patch
-popd
-
+    -C /build/glibc --strip-components 1
 pushd /build/glibc
 
+patch -Np1 -i /pkgs/glibc-2.36-fhs-1.patch
+
+mkdir -v build
+cd build
+
 echo "rootsbindir=/usr/sbin" > configparms
-/sources/glibc/configure    \
-    --prefix=/usr   \
-    --disable-werror    \
-    --enable-kernel=3.2 \
+../configure                         \
+    --prefix=/usr                   \
+    --disable-werror                \
+    --enable-kernel=3.2             \
     --enable-stack-protector=strong \
-    --with-headers=/usr/include \
+    --with-headers=/usr/include     \
     libc_cv_slibdir=/usr/lib
 
 make
@@ -27,19 +28,21 @@ touch /etc/ld.so.conf
 
 # skip an unneeded sanity check that fails in the LFS partial environment
 sed '/test-installation/s@$(PERL)@echo not running@'    \
-    -i /sources/glibc/Makefile
+    -i ../Makefile
+
+# install it.
 make install
 
 # fix hardcoded path to the executable loader in ldd script
 sed '/RTLDLIST=/s@/usr@@g' -i /usr/bin/ldd
 
 # install the configuration file and runtime directory for nscd
-cp -v /sources/glibc/nscd/nscd.conf /etc/nscd.conf
+cp -v ../nscd/nscd.conf /etc/nscd.conf
 mkdir -pv /var/cache/nscd
 
 # install systemd support files for nscd
-install -v -Dm644 /sources/glibc/nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf
-install -v -Dm644 /sources/glibc/nscd/nscd.service /usr/lib/systemd/system/nscd.service
+install -v -Dm644 ../nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf
+install -v -Dm644 ../nscd/nscd.service /usr/lib/systemd/system/nscd.service
 
 # install locale
 mkdir -pv /usr/lib/locale
@@ -79,7 +82,10 @@ localedef -i zh_CN -f GB18030 zh_CN.GB18030
 localedef -i zh_HK -f BIG5-HKSCS zh_HK.BIG5-HKSCS
 localedef -i zh_TW -f UTF-8 zh_TW.UTF-8
 
-popd
+make localedata/install-locales
+
+localedef -i POSIX -f UTF-8 C.UTF-8 2> /dev/null || true
+localedef -i ja_JP -f SHIFT_JIS ja_JP.SJIS 2> /dev/null || true
 
 
 # configure glibc
@@ -130,3 +136,5 @@ include /etc/ld.so.conf.d/*.conf
 
 EOF
 mkdir -pv /etc/ld.so.conf.d
+
+popd

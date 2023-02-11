@@ -14,7 +14,9 @@ cd unix
     --prefix=/usr           \
     --mandir=/usr/share/man
 
+# build the package
 make
+
 sed -e "s|$SRCDIR/unix|/usr/lib|" \
     -e "s|$SRCDIR|/usr/include|" \
     -i tclConfig.sh
@@ -31,7 +33,6 @@ sed -e "s|$SRCDIR/unix/pkgs/itcl4.2.2|/usr/lib/itcl4.2.2|" \
     -i pkgs/itcl4.2.2/itclConfig.sh
 unset SRCDIR
 
-make 
 make test > test_result.log
 make install
 # make the installed library writable so debugging symbols can be removed later.

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/gettext
+mkdir -pv /build/gettext
 tar -xf /pkgs/gettext-0.21.tar.xz           \
-    -C /sources/gettext --strip-components 1
+    -C /build/gettext --strip-components 1
 
 pushd /build/gettext
 
-/sources/gettext/configure          \
+./configure                         \
     --prefix=/usr                   \
     --disable-static                \
     --docdir=/usr/share/doc/gettext-0.21

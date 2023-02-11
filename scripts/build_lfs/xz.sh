@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/xz
+mkdir -pv /build/xz
 tar -xf /pkgs/xz-5.2.6.tar.xz               \
-    -C /sources/xz --strip-components 1
+    -C /build/xz --strip-components 1
 
 pushd /build/xz
 
-/sources/xz/configure               \
+./configure                         \
     --prefix=/usr                   \
     --disable-static                \
     --docdir=/usr/share/doc/xz-5.2.6

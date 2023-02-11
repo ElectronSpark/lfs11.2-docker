@@ -28,8 +28,8 @@ sh Configure                                        \
 
 make
 make check > test_result.log
-make install
 
+make install
 unset BUILD_ZLIB BUILD_BZIP2
 
 popd

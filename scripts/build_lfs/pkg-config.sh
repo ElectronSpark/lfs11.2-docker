@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/pkg-config
+mkdir -pv /build/pkg-config
 tar -xf /pkgs/pkg-config-0.29.2.tar.gz      \
-    -C /sources/pkg-config --strip-components 1
+    -C /build/pkg-config --strip-components 1
 
 pushd /build/pkg-config
 
-/sources/pkg-config/configure       \
+./configure                         \
     --prefix=/usr                   \
     --with-internal-glib            \
     --disable-host-tool             \

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/sed
+mkdir -pv /build/sed
 tar -xf /pkgs/sed-4.8.tar.xz                \
-    -C /sources/sed --strip-components 1
+    -C /build/sed --strip-components 1
 
 pushd /build/sed
 
-/sources/sed/configure --prefix=/usr
+./configure --prefix=/usr
 
 # compile the package and generate its HTML documentation
 make

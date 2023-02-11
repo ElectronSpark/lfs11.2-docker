@@ -4,21 +4,26 @@
 # and gcc.
 # expect -c "spawn ls"
 
-mkdir -pv /{build,sources}/binutils
+mkdir -pv /build/binutils
 tar -xf /pkgs/binutils-2.39.tar.xz          \
-    -C /sources/binutils --strip-components 1
+    -C /build/binutils --strip-components 1
 
 pushd /build/binutils
 
-/sources/binutils/configure             \
-    --prefix=/usr                       \
-    --sysconfdir=/etc                   \
-    --enable-gold                       \
-    --enable-ld=default                 \
-    --enable-plugins                    \
-    --enable-shared                     \
-    --disable-werror                    \
-    --enable-64-bit-bfd                 \
+expect -c "spawn ls"
+
+mkdir -v build
+cd build
+
+../configure                \
+    --prefix=/usr           \
+    --sysconfdir=/etc       \
+    --enable-gold           \
+    --enable-ld=default     \
+    --enable-plugins        \
+    --enable-shared         \
+    --disable-werror        \
+    --enable-64-bit-bfd     \
     --with-system-zlib
 
 make tooldir=/usr

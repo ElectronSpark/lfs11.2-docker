@@ -1,14 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/less
+mkdir -pv /build/less
 tar -xf /pkgs/less-590.tar.gz               \
-    -C /sources/less --strip-components 1
+    -C /build/less --strip-components 1
 
 pushd /build/less
 
-/sources/less/configure     \
-    --prefix=/usr           \
-    --sysconfdir=/etc
+./configure --prefix=/usr --sysconfdir=/etc
 
 make
 make install

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/psmisc
+mkdir -pv /build/psmisc
 tar -xf /pkgs/psmisc-23.5.tar.xz                \
-    -C /sources/psmisc --strip-components 1
+    -C /build/psmisc --strip-components 1
 
 pushd /build/psmisc
 
-/sources/psmisc/configure --prefix=/usr
+./configure --prefix=/usr
 
 make
 make install

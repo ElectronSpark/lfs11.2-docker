@@ -1,15 +1,15 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/gawk
+mkdir -pv /build/gawk
 tar -xf /pkgs/gawk-5.1.1.tar.xz             \
-    -C /sources/gawk --strip-components 1
+    -C /build/gawk --strip-components 1
 
 pushd /build/gawk
 
 # make sure some unneeded files are not installed
-sed -i 's/extras//' /sources/gawk/Makefile.in
+sed -i 's/extras//' Makefile.in
 
-/sources/gawk/configure --prefix=/usr
+./configure --prefix=/usr
 
 make
 
@@ -19,7 +19,6 @@ make install
 
 # install the documentation
 mkdir -pv   /usr/share/doc/gawk-5.1.1
-cp  -v /sources/gawk/doc/{awkforai.txt,*.{eps,pdf,jpg}}     \
-    /usr/share/doc/gawk-5.1.1
+cp  -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-5.1.1
 
 popd

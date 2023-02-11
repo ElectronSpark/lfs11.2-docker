@@ -4,17 +4,19 @@
 # and gcc.
 # expect -c "spawn ls"
 
-mkdir -pv /{build,sources}/gcc
+mkdir -pv /build/gcc
 tar -xf /pkgs/gcc-12.2.0.tar.xz                 \
-    -C /sources/gcc --strip-components 1
+    -C /build/gcc --strip-components 1
+pushd /build/gcc
 
 # this line is specific to x86_64 machine
 sed -e '/m64=/s/lib64/lib/' \
-    -i.orig /sources/gcc/gcc/config/i386/t-linux64
+    -i.orig gcc/config/i386/t-linux64
 
-pushd /build/gcc
+mkdir -v build
+cd build
 
-/sources/gcc/configure                  \
+../configure                  \
     --prefix=/usr                       \
     LD=ld                               \
     --enable-languages=c,c++            \
@@ -31,8 +33,9 @@ groupadd tester
 useradd -s /bin/bash -g tester -m -k /dev/null tester
 chown -Rv tester .
 su tester -c "PATH=$PATH make -k check"
+
 # to receive a summary of the test results
-/sources/gcc/contrib/test_summary
+../contrib/test_summary
 
 # install the package
 make install

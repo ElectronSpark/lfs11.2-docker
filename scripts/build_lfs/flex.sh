@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{sources,build}/flex
+mkdir -pv /build/flex
 tar -xf /pkgs/flex-2.6.4.tar.gz                 \
-    -C /sources/flex --strip-components 1
+    -C /build/flex --strip-components 1
 
 pushd /build/flex
 
-/sources/flex/configure \
+./configure             \
     --prefix=/usr       \
     --disable-static    \
     --docdir=/usr/share/doc/flex-2.6.4

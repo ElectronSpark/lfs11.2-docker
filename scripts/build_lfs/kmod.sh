@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/kmod
+mkdir -pv /build/kmod
 tar -xf /pkgs/kmod-30.tar.xz                    \
-    -C /sources/kmod --strip-components 1
+    -C /build/kmod --strip-components 1
 
 pushd /build/kmod
 
-/sources/kmod/configure     \
+./configure                 \
     --prefix=/usr           \
     --sysconfdir=/etc       \
     --with-openssl          \

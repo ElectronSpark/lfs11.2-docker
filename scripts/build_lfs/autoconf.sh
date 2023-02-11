@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/autoconf
+mkdir -pv /build/autoconf
 tar -xf /pkgs/autoconf-2.71.tar.xz              \
-    -C /sources/autoconf --strip-components 1
+    -C /build/autoconf --strip-components 1
 
 pushd /build/autoconf
 
-/sources/autoconf/configure --prefix=/usr
+./configure --prefix=/usr
 
 make
 make check > test_result.log

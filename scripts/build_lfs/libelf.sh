@@ -1,13 +1,12 @@
-
 #!/bin/bash
 
-mkdir -pv /{build,sources}/libelf
+mkdir -pv /build/libelf
 tar -xf /pkgs/elfutils-0.187.tar.bz2        \
-    -C /sources/libelf --strip-components 1
+    -C /build/libelf --strip-components 1
 
 pushd /build/libelf
 
-/sources/libelf/configure       \
+./configure                     \
     --prefix=/usr               \
     --disable-debuginfod        \
     --enable-libdebuginfod=dummy

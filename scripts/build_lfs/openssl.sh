@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/openssl
+mkdir -pv /build/openssl
 tar -xf /pkgs/openssl-3.0.5.tar.gz              \
-    -C /sources/openssl --strip-components 1
+    -C /build/openssl --strip-components 1
 
 pushd /build/openssl
 
-/sources/openssl/config     \
+./config                    \
     --prefix=/usr           \
     --openssldir=/etc/ssl   \
     --libdir=lib            \
@@ -21,6 +21,6 @@ make MANSUFFIX=ssl install
 
 mv -v /usr/share/doc/openssl /usr/share/doc/openssl-3.0.5
 
-cp -vfr /sources/openssl/doc/* /usr/share/doc/openssl-3.0.5
+cp -vfr doc/* /usr/share/doc/openssl-3.0.5
 
 popd

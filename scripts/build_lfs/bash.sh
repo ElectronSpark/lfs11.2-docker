@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/bash
+mkdir -pv /build/bash
 tar -xf /pkgs/bash-5.1.16.tar.gz                \
-    -C /sources/bash --strip-components 1
+    -C /build/bash --strip-components 1
 
 cd /build/bash
 
-/sources/bash/configure                 \
+./configure                             \
     --prefix=/usr                       \
     --docdir=/usr/share/doc/bash-5.1.16 \
     --without-bash-malloc               \

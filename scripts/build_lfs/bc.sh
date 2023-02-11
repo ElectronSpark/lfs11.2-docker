@@ -8,7 +8,7 @@ pushd /build/bc
 
 CC=gcc ./configure --prefix=/usr -G -O3 -r
 make prefix=/usr
-make check > test_result.log
+make test > test_result.log
 make prefix=/usr install
 
 popd

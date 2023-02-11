@@ -8,12 +8,11 @@ tar -xf /pkgs/gmp-6.2.1.tar.xz              \
 
 pushd /build/gmp
 
-# libraries suitable for processors less capable than the host's CPU are desired
-cp -v configfsf.guess config.guess
-cp -v configfsf.sub config.sub
+# # libraries suitable for processors less capable than the host's CPU are desired
+# cp -v configfsf.guess config.guess
+# cp -v configfsf.sub config.sub
 
 ./configure                         \
-    --build=x86_64-pc-linux-gnu     \
     --prefix=/usr                   \
     --enable-cxx                    \
     --disable-static                \

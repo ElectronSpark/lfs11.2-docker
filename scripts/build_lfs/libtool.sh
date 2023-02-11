@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir -pv /{build,sources}/libtool
+mkdir -pv /build/libtool
 tar -xf /pkgs/libtool-2.4.7.tar.xz          \
-    -C /sources/libtool --strip-components 1
+    -C /build/libtool --strip-components 1
 
 pushd /build/libtool
 
-/sources/libtool/configure --prefix=/usr
+./configure --prefix=/usr
 
 make
 make check > test_result.log

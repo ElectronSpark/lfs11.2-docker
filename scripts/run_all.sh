@@ -38,6 +38,8 @@ function on_chroot() {
     echo "now it's under chroot environment..."
     pushd /scripts/build_chroot
     sh build_tmp_tools.sh
+    cd /scripts/build_lfs
+    sh build_all.sh
     popd
 }
 

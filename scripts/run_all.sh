@@ -28,18 +28,33 @@ function on_host() {
         PS1='(lfs chroot) \u:\w\$ ' \
         PATH=/usr/bin:/usr/sbin     \
         MAKEFLAGS="${MAKEFLAGS}"    \
-        /bin/bash --login -c "/scripts/run_all.sh on_chroot"
+        /bin/bash --login -c "/scripts/run_all.sh on_chroot1"
+    sudo chroot "${LFS}" /usr/bin/env -i    \
+        HOME=/root                  \
+        TERM="$TERM"                \
+        PS1='(lfs chroot) \u:\w\$ ' \
+        PATH=/usr/bin:/usr/sbin     \
+        MAKEFLAGS="${MAKEFLAGS}"    \
+        /bin/bash --login -c "/scripts/run_all.sh on_chroot2"
     sudo sh ${LFS_HOME}/scripts/prepare_chroot/enter_chroot.sh
     popd
 }
 
 
-function on_chroot() {
+function on_chroot1() {
     echo "now it's under chroot environment..."
     pushd /scripts/build_chroot
     sh build_tmp_tools.sh
     cd /scripts/build_lfs
-    sh build_all.sh
+    sh build_all.sh before_bash
+    popd
+}
+
+function on_chroot2() {
+    echo "now it's under chroot environment..."
+    pushd /scripts/build_lfs
+    sh build_all.sh after_bash
+    sh clean_up.sh
     popd
 }
 
@@ -56,8 +71,11 @@ case $1 in
     on_chroot_env_setting)
         on_chroot_env_setting
         ;;
-    on_chroot)
-        on_chroot
+    on_chroot1)
+        on_chroot1
+        ;;
+    on_chroot2)
+        on_chroot2
         ;;
     on_host)
         on_host

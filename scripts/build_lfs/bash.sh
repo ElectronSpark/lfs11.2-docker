@@ -27,6 +27,6 @@ EOF
 make install
 
 # after installation, switch to the newly compiled bash program
-exec /usr/bin/bash --login
+# exec /usr/bin/bash --login
 
 cd /

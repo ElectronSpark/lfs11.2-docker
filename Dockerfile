@@ -92,4 +92,4 @@ RUN mkdir -pv ${LFS_HOME}/build
 
 
 # Enter the bash
-ENTRYPOINT [ "/bin/bash" ]
+ENTRYPOINT [ "/bin/bash ${LFS_HOME}/scripts/run_all.sh" ]

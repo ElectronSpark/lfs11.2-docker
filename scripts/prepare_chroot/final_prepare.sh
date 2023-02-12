@@ -14,14 +14,8 @@ chown -R root:root ${LFS}/lib64
 # preparing virtual kernel file system
 mkdir -pv ${LFS}/{dev,proc,sys,run}
 
-# mount and populate the host system's /dev directory
-mount -v --bind /dev ${LFS}/dev
+sh mount_devs.sh
 
-# mount the remaining virtual kernel filesystems
-mount -v --bind /dev/pts ${LFS}/dev/pts
-mount -vt proc proc ${LFS}/proc
-mount -vt sysfs sysfs ${LFS}/sys
-mount -vt tmpfs tmpfs ${LFS}/run
 # in some host systems, /dev/shm is a symbolic link to /run/shm.
 if [ -h ${LFS}/dev/shm ]; then
     mkdir -pv ${LFS}/$(readlink ${LFS}/dev/shm)
